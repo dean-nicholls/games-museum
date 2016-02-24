@@ -1,0 +1,11 @@
+{
+  "name": "games-museum",
+  "version": "0.0.1",
+  "description": "",
+  "main": "App/src/app.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+  	"build": "browserify -e App/src/app.js -o App/js/museum.bundle.js --debug"
+  }
+}
