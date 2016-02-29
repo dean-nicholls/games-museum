@@ -2,6 +2,11 @@ var context = require('./models/context');
 var debug = require('./utils/debug');
 var Messenger = require('./utils/Messenger');
 var screenManager = require('./managers/screenManager');
+var modelManager = require('./managers/modelManager');
+
+// This is needless, but it stops Netbeans mithering me about undeclared global vars
+window.THREE = THREE;
+window.PIXI = PIXI;
 
 var App = function() {
 	var pub = {};
@@ -37,19 +42,22 @@ var App = function() {
 		var ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
 		context.scene.add(ambientLight);
 
-		// var sphereGeometry = new THREE.SphereGeometry(50, 32, 16);
-		// var sphereMaterial = new THREE.MeshLambertMaterial({ color: 0x8888ff }); 
-		// var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-		// sphere.position.set(50, 50, 0);
-		// context.scene.add(sphere);
-
-		// context.mainCamera.lookAt(sphere.position);
+		modelManager.load(
+			function(percentage) {
+				debug.log("Loading percent: " + percentage);
+			},
+			function() {
+				var cabinet = 
+			}
+		);
 
 		var loader = new THREE.ColladaLoader();
 		loader.load("./models/crudecabinet.dae", function(model) {
 			context.scene.add(model.scene);
 			context.mainCamera.lookAt(model.scene.position);
 		});
+		
+		
 
 		// Setup PIXI renderer
 		context.pixiRenderer = PIXI.autoDetectRenderer(context.width, context.height, { transparent: true });
